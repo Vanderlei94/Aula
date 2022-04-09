@@ -7,33 +7,36 @@ using Aula.Entities.Enums;
 
 namespace Aula.Entities
 {
-    internal class Worker
+    class Worker
     {
         public string Name { get; set; }
         public WorkerLevel Level { get; set; }
         public double BaseSalary { get; set; }
-        public Departament Derpartament { get; set; }
-        public List<HourContract> Contracts { get; set; } = new List<HourContract>();
+        public Department Department { get; set; }
+        public List<HourContract> Contracts { get; private set; } = new List<HourContract>();
 
-        public Worker() 
-        { 
+        public Worker()
+        {
         }
 
-        public Worker(string name, WorkerLevel level, double baseSalary, Departament derpartament)
+        public Worker(string name, WorkerLevel level, double baseSalary, Department department)
         {
             Name = name;
             Level = level;
             BaseSalary = baseSalary;
-            Derpartament = derpartament;
+            Department = department;
         }
+
         public void AddContract(HourContract contract)
         {
             Contracts.Add(contract);
         }
+
         public void RemoveContract(HourContract contract)
         {
             Contracts.Remove(contract);
         }
+
         public double Income(int year, int month)
         {
             double sum = BaseSalary;
@@ -44,6 +47,7 @@ namespace Aula.Entities
                     sum += contract.TotalValue();
                 }
             }
-        } return sum;
+            return sum;
+        }
     }
 }
